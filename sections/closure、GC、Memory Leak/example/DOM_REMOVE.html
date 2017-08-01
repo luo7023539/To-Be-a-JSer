@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<style>
+    #div {
+        width: 200px;
+        height: 200px;
+    }
+</style>
+<body>
+<div id="div">
+    Test
+</div>
+<button onclick="removeClick()">Remove Click</button>
+<button onclick="removeDiv()">Remove Div</button>
+</body>
+<script>
+    window.onload = function () {
+        var arr = new Array(1e7).fill(0);
+        var div = document.getElementById('div');
+
+        div.onclick = function () {
+            console.log(arr)
+        }
+    };
+
+    function removeClick() {
+        var div = document.getElementById('div');
+        div.onclick = null
+    }
+
+    function removeDiv() {
+        document.body.removeChild(document.getElementById('div'))
+    }
+</script>
+</html>
