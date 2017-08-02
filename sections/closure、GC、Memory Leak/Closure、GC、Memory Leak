@@ -91,6 +91,35 @@ __[V8 之旅： 垃圾回收器](http://newhtml.net/v8-garbage-collection/)__
 
 ### Memory Leak
 
+根据上面的一些规则做一些例子
+
+如何挤爆浏览器或者node内存
+
+可以通过node直接跑
+
+```javascript
+let arr = [];
+while(true)
+  arr.push(1);
+```
+
+```javascript
+let arr = [];
+while(true)
+  arr.push();
+```
+
+以下这个可以略过
+
+如果 push 的是 `Buffer` 会有所区别
+
+```javascript
+let arr = [];
+while(true)
+  arr.push(new Buffer(1000));
+```
+
+接下来通过例子熟悉一下~
 
 ##  Refer To
 
