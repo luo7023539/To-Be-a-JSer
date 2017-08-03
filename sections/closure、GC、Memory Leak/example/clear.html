@@ -9,6 +9,9 @@
 <div id="div">
 
 </div>
+<button onclick="unbind()">
+
+</button>
 </body>
 <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
 <script>
@@ -32,17 +35,22 @@ window.onload = function () {
         },
         error: function (resp) {
 //            _data = null;
-            document.body.onclick = function () {
-
-            }
+            //谨慎使用!!!!!
+//            document.body.onclick = function () {
+//                console.log('body click')
+//            }
         }
     };
 //    data()
+        document.body.onclick = function () {
+            console.log('body click')
+        };
+//    $.ajax(option)
+}
 
-    $.ajax(option)
-
-
-
+function unbind() {
+    console.log('unbind body');
+    document.body.onclick = null;
 }
 </script>
 </html>
