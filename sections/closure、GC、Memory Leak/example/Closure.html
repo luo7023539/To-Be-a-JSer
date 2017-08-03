@@ -5,27 +5,27 @@
     <title>Closure</title>
 </head>
 <body>
-<button id="btn">
+<button id="btn" onclick="replaceThing()">
     Remove Interval
 </button>
 </body>
 <script>
     var theThing = null;
 
-        var replaceThing = function () {
-            var originalThing = theThing;
-            var unused = function () {
-                if (originalThing)
-                    console.log("hi")
-            };
-            theThing = {
-                longStr: new Array(1000000).join('*'),
-                func: function () {
-
-                }
-            };
+    var replaceThing = function () {
+        var originalThing = theThing;
+        var _longStr = new Array(1000000).join('_');
+        var unused = function () {
+            if (originalThing)
+                console.log("hi")
         };
-        setInterval(replaceThing, 100);
+        theThing = {
+            longStr: new Array(1000000).join('*'),
+            func: function () {
+
+            }
+        };
+    };
 
     /*
     * 代码片段做了一件事情：每次调用 replaceThing ，theThing 得到一个包含一个大数组和一个新闭包（someMethod）的新对象。

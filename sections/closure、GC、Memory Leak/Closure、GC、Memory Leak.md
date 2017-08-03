@@ -142,6 +142,31 @@ baz();
 
 但是在某一些情况下,我们也会在不经意间产生闭包
 
+示例当中有示范
+
+
+```
+    window.onload = function () {
+        var div = document.getElementById('div');
+        var longStr = new Array(1e7).join('*');
+
+
+        var useless = function () {
+            if(longStr)
+                console.log('哈哈!! 我没有被使用 - 也没有被暴露出去');
+        };
+
+        div.onclick = function () {
+            console.log('我才是被词法作用域外使用的函数')
+        }
+    };
+```
+
+这个有一个比较好的解释!
+
+在运行阶段作用域中创建的闭包是共享的!
+
+也就是说,在函数内部创建函数,且有函数暴露到外部,不论这两个是否是同一个,所有被引用的变量都会无法被浏览器垃圾回收!
 
 ##  Refer To
 

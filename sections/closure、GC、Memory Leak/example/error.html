@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+<body>
+<div id="div">
+
+</div>
+</body>
+<script>
+    window.onload = function () {
+        var div = document.getElementById('div');
+        var longStr = new Array(1e7).join('*');
+
+
+        var useless = function () {
+            if(longStr)
+                console.log('哈哈!! 我没有被使用 - 也没有被暴露出去');
+        };
+
+        div.onclick = function () {
+            console.log('我才是被词法作用域外使用的函数')
+        }
+    };
+
+    //
+</script>
+</html>
