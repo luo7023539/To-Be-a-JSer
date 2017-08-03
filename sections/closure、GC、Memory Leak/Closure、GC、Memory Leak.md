@@ -4,7 +4,7 @@
 
 在了解闭包之前有几个概念需要了解:
 
-如需要跳过本章请直接打开example/clear.htm:
+如需要跳过本章请直接打开[clear](example/clear.html):
 
 * 请勿在已经产生闭包的作用域内再次创建闭包!!!
 * 请勿在已经产生闭包的作用域内再次创建闭包!!!
@@ -184,6 +184,13 @@ baz();
 例如Clear当中的示例
 
 看了示例以后会有一种坑到自己的感觉!!!!
+
+示例:
+
+1. [error](example/error.html)
+2. [Closure](example/Closure.html)
+3. [DOM_REMOVE](example/DOM_REMOVE.html)
+4. [clear](example/clear.html)
 
 * 请勿在已经产生闭包的作用域内再次创建闭包!!!
 * 请勿在已经产生闭包的作用域内再次创建闭包!!!
