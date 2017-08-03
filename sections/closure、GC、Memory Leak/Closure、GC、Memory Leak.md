@@ -23,7 +23,7 @@
 
 ##### 下面看一些代码
 
-```
+```javascript
 function foo() {
     var a = 2;
     function bar() { 
@@ -49,7 +49,7 @@ baz(); // 2 —— 朋友,这就是闭包的效果。
 
 **无论通过何种手段将内部函数传递到所在的词法作用域以外,它都会持有对原始定义作用 域的引用,无论在何处执行这个函数都会使用闭包。**
 
-```
+```javascript
 function foo() { 
     var a = 2;
     function baz() { 
@@ -135,7 +135,7 @@ while(true)
 * 谨慎使用闭包
 
 
-```
+```javascript
 function foo() {
     var a = 2;
     
@@ -154,7 +154,7 @@ baz();
 示例当中有示范
 
 
-```
+```javascript
     window.onload = function () {
         var div = document.getElementById('div');
         var longStr = new Array(1e7).join('*');
