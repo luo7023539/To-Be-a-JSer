@@ -18,8 +18,10 @@ To Do:
 * Growth
 * [JavaScript 标准参考教程](http://javascript.ruanyifeng.com)
 * [汤姆大叔](http://www.cnblogs.com/TomXu/)
+* [xufei](https://github.com/xufei/blog)
 * [张鑫旭](http://www.zhangxinxu.com)
 * [阮一峰](http://www.ruanyifeng.com/home.html)
+
 
 
 未完待续。。。。
