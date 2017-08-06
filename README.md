@@ -8,7 +8,7 @@ To Do:
 ## 总结
 
 * [Closure、GC、Memory Leak](sections/closure、GC、Memory%20Leak/Closure、GC、Memory%20Leak.md)
-* [Single Page Web Application](sections/closure、GC、Memory%20Leak/Closure、GC、Memory%20Leak.md)
+* [Single Page Web Application](sections/Single Page Web Application/Single Page Web Application.md)
 
 ## 推荐
 
