@@ -22,6 +22,11 @@ To Do:
 
 ## 推荐
 
+* [阿里FED](http://taobaofed.org/)
+* [百度FEX](http://fex.baidu.com/)
+* [腾讯CDC](http://cdc.tencent.com/)
+* [FED社区](http://frontenddev.org/)
+
 #### javascript
 * 犀牛书、高程三、ppk谈JavaScript、高性能JavaScript
 * 你不知道的Javascript
