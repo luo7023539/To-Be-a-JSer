@@ -7,14 +7,18 @@
 <body>
 
 <div id="div">
-
+<h3>div</h3>
 </div>
 <button onclick="unbind()">
-
+Unbind
+</button>
+<button onclick="remove()">
+Remove
 </button>
 </body>
 <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
 <script>
+    var thing = null;
 window.onload = function () {
     var _data = new Array(1e6).fill(0);
 
@@ -36,21 +40,30 @@ window.onload = function () {
         error: function (resp) {
 //            _data = null;
             //谨慎使用!!!!!
-            document.body.onclick = function () {
-                console.log('body click')
-            }
+            //bind Evnet
+//            document.getElementById('div').onclick = function () {
+//                console.log('div click')
+//            }
+
+            //expose to global
+//            thing = {
+//                method: function () {
+//                    console.log(method)
+//                }
+//            }
         }
     };
 //    data()
-        document.body.onclick = function () {
-            console.log('body click')
-        };
-//    $.ajax(option)
+    $.ajax(option)
 };
 
 function unbind() {
     console.log('unbind body');
-    document.body.onclick = null;
+    document.getElementById('div').onclick = null;
+}
+function remove() {
+    console.log('unbind body');
+    document.body.removeChild(document.getElementById('div'))
 }
 </script>
 </html>
