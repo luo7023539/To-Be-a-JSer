@@ -171,13 +171,10 @@ $digest: function() {
           traverseScopesLoop:
           do { // "traverse the scopes" loop
             if ((watchers = current.$$watchers)) {
-              // process our watches
               watchers.$$digestWatchIndex = watchers.length;
               while (watchers.$$digestWatchIndex--) {
                 try {
                   watch = watchers[watchers.$$digestWatchIndex];
-                  // Most common watches are on primitives, in which case we can short
-                  // circuit it with === operator, only when === fails do we use .equals
                   if (watch) {
                     get = watch.get;
                     if ((value = get(current)) !== (last = watch.last) &&
@@ -199,8 +196,6 @@ $digest: function() {
                         });
                       }
                     } else if (watch === lastDirtyWatch) {
-                      // If the most recently dirty watcher is now clean, short circuit since the remaining watchers
-                      // have already been tested.
                       dirty = false;
                       break traverseScopesLoop;
                     }
@@ -249,4 +244,8 @@ $digest: function() {
 以上代码去除了部分注释、代码, 保留内外循环;
 
 #### 要点
+
+1. 外层循环的作用主要是通过不断执行内循环来保证没有脏值出现
+2. 内循环通过不断遍历该scope及所有子作用域的$$watch队列来保证不存在脏值
+3. 类似于二叉树的遍历,更深层的作用域优先被遍历到
 
