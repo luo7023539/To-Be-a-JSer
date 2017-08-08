@@ -367,7 +367,7 @@ $destroy: function() {
 
 ### 基于作用域的事件系统
 
-````javascript
+```javascript
       $on: function(name, listener) {
         var namedListeners = this.$$listeners[name];
         if (!namedListeners) {
