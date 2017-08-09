@@ -29,7 +29,7 @@ $ webpack-dev-server  // 开启本地调试服务器
 # 以上操作2选1即可
 ```
 
-### DEMO01
+### DEMO01 单一入口
 
 ```javascript
 // webpack.config.js
@@ -44,7 +44,7 @@ module.exports = {
 * 通过entry指定入口文件
 * 通过output指定打包文件
 
-### DEMO02
+### DEMO02 多入口文件
 
 ```javascript
 module.exports = {
@@ -60,7 +60,7 @@ module.exports = {
 
 * 可以指定多个入口文件,相应的,也会生成多个打包后的文件
 
-### DEMO03
+### DEMO03 JSX文件编译、打包
 
 React JSX 文件
 ```javascript
@@ -128,7 +128,7 @@ module: {
 * css、图片文件的加载均类似
 
 
-### DEMO04
+### DEMO04 CSS打包
 
 ```javascript
 module.exports = {
@@ -147,7 +147,7 @@ module.exports = {
 * css采用style-loader及css-loader
 * 当使用sass或less需要额外的加载器
 
-### DEMO05
+### DEMO05 图片打包
 
 ```javascript
 var img1 = document.createElement("img");
@@ -180,7 +180,7 @@ module.exports = {
 * 当文件大于指定大小,会被转换为普通的路径
 * 在js中require图片,实际得到的是一个url
 
-### DEMO06
+### DEMO06 CSS 模块化
 
 app.css
 
@@ -247,8 +247,29 @@ module.exports = {
 * [更多相关的说明](https://css-modules.github.io/webpack-demo/)
 
 
+### DEMO07 JS文件压缩
 
+```javascript
+var webpack = require('webpack');
+var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js'
+  },
+  plugins: [
+    new uglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
+  ]
+};
+```
 
+* 通过plugins指定所使用的插件
+* uglifyJsPlugin可用于js文件压缩
+* [UglifyJs Plugin](http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin)
 
 
 
