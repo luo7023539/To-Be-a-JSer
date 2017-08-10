@@ -549,20 +549,67 @@ module.exports = {
   `ProvidePlugin` ([Official doc](http://webpack.github.io/docs/shimming-modules.html)).
   
   
+### DEMO14: 暴露全局变量 ([source](https://github.com/ruanyf/webpack-demos/tree/master/demo14))
 
+如果你想要使用某些全局变量,而无需将它们引入,你可以在`webpack.config.js` 中通过`externals`配置。([官方文档](http://webpack.github.io/docs/library-and-externals.html)).
 
+```javascript
+var data = 'Hello World';
+```
 
+We can expose `data` as a global variable.
 
+```javascript
+// webpack.config.js
+module.exports = {
+  entry: './main.jsx',
+  output: {
+    filename: 'bundle.js'
+  },
+  module: {
+    loaders:[
+      {
+        test: /\.js[x]?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015', 'react']
+        }
+      },
+    ]
+  },
+  externals: {
+    // require('data') is external and available
+    //  on the global var data
+    'data': 'data'
+  }
+};
+```
 
+现在,你可以像引入模块一样引入`data`。但它实际上是一个全局变量
 
+```javascript
+// main.jsx
+var data = require('data');
+var React = require('react');
+var ReactDOM = require('react-dom');
 
+ReactDOM.render(
+  <h1>{data}</h1>,
+  document.body
+);
+```
 
+### DEMO15: React 组件热替换
 
+### DEMO16: React-router
 
+* 最后两部分跟React相关,需要的可以在阮大github中阅读
 
 #### 待完善
 
 * DEMO09存在问题,直接跑不动,__DEV__报错
+* 具体应用至项目当中!!!
 
 #### Refer To 
 
