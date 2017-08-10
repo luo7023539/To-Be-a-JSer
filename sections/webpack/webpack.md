@@ -544,8 +544,11 @@ module.exports = {
 ```
 
 #### 要点 
+* CommonsChunkPlugin可以根据指定的参数抽出公用的逻辑、甚至用来打包插件
 * 如果你想要某个模块在所有模块不必引入就可是使用,例如 $（jquery）,你需要使用
   `ProvidePlugin` ([Official doc](http://webpack.github.io/docs/shimming-modules.html)).
+  
+  
 
 
 
