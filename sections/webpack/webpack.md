@@ -393,7 +393,10 @@ module.exports = {
 打包后,你会发现,`main.js` 和 `a.js`被打包成`bundle.js` and `1.bundle.js`,并且自动按需加载。
 
 #### 要点
-* 
+* 针对需要单独分包的文件使用`require.ensure`方法将依赖从bundle文件分离出去
+* Webpack将帮你管理依赖的加载顺序
+* 每个被分离出去的块都会被分配一个数字,即加载依赖的标志
+* 公用的依赖不会被重复打包!!!
 
 ### Demo11: 通过bundle-loader实现代码分包 ([source](https://github.com/ruanyf/webpack-demos/tree/master/demo11))
 
