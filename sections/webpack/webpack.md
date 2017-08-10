@@ -2,6 +2,8 @@
 
 首先全局安装webpack、webpack-dev-server
 
+__测试学习的时候请注意版本__
+
 ```bash
 $ npm i -g webpack@1.x webpack-dev-server@1.x
 ```
@@ -392,12 +394,6 @@ module.exports = {
 
 打包后,你会发现,`main.js` 和 `a.js`被打包成`bundle.js` and `1.bundle.js`,并且自动按需加载。
 
-#### 要点
-* 针对需要单独分包的文件使用`require.ensure`方法将依赖从bundle文件分离出去
-* Webpack将帮你管理依赖的加载顺序
-* 每个被分离出去的块都会被分配一个数字,即加载依赖的标志
-* 公用的依赖不会被重复打包!!!
-
 ### Demo11: 通过bundle-loader实现代码分包 ([source](https://github.com/ruanyf/webpack-demos/tree/master/demo11))
 
 另一种实现分包的方式 [bundle-loader](https://www.npmjs.com/package/bundle-loader).
@@ -417,8 +413,69 @@ load(function(file) {
 });
 ```
 
+#### 要点
+* 针对需要单独分包的文件使用`require.ensure`方法将依赖从bundle文件分离出去
+* Webpack将帮你管理依赖的加载顺序
+* 每个被分离出去的块都会被分配一个数字,即加载依赖的标志
+* 公用的依赖不会被重复打包!!!
 
+### DEMO12: 公共包 ([source](https://github.com/ruanyf/webpack-demos/tree/master/demo12))
 
+当多个脚本存在公用的模块的时候,你可以使用CommonsChunkPlugin将公共部分提取成一个单独的文件
+webpack.config.js
+
+```javascript
+// main1.jsx
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+ReactDOM.render(
+  <h1>Hello World</h1>,
+  document.getElementById('a')
+);
+
+// main2.jsx
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+ReactDOM.render(
+  <h2>Hello Webpack</h2>,
+  document.getElementById('b')
+);
+```
+
+```javascript
+var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+module.exports = {
+  entry: {
+    bundle1: './main1.jsx',
+    bundle2: './main2.jsx'
+  },
+  output: {
+    filename: '[name].js'
+  },
+  module: {
+    loaders:[
+      {
+        test: /\.js[x]?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015', 'react']
+        }
+      },
+    ]
+  },
+  plugins: [
+    new CommonsChunkPlugin('init.js')
+  ]
+}
+```
+
+#### 要点
+* 传入字符串参数, 默认会把所有入口节点的公共代码提取出来
+* 有选择的提取公共代码, `CommonsChunkPlugin('common.js',['main','index'])`
+* 有选择性的提取（对象方式传参）
 
 
 
