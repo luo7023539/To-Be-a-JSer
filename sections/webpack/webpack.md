@@ -478,6 +478,75 @@ module.exports = {
 * 有选择性的提取（对象方式传参）
 
 
+## Demo13: 插件包 ([source](https://github.com/ruanyf/webpack-demos/tree/master/demo13))
+
+也可以通过CommonsChunkPlugin将插件合并打包成一个单独的js文件
+
+main.js
+
+```javascript
+var $ = require('jquery');
+$('h1').text('Hello World');
+```
+
+index.html
+
+```html
+<html>
+  <body>
+    <h1></h1>
+    <script src="vendor.js"></script>
+    <script src="bundle.js"></script>
+  </body>
+</html>
+```
+
+webpack.config.js
+
+```javascript
+var webpack = require('webpack');
+
+module.exports = {
+  entry: {
+    app: './main.js',
+    vendor: ['jquery'],
+  },
+  output: {
+    filename: 'bundle.js'
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'vendor.js')
+  ]
+};
+```
+
+```javascript
+// main.js
+$('h1').text('Hello World');
+// webpack.config.js
+var webpack = require('webpack');
+
+module.exports = {
+  entry: {
+    app: './main.js'
+  },
+  output: {
+    filename: 'bundle.js'
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery"
+    })
+  ]
+};
+```
+
+#### 要点 
+* 如果你想要某个模块在所有模块不必引入就可是使用,例如 $（jquery）,你需要使用
+  `ProvidePlugin` ([Official doc](http://webpack.github.io/docs/shimming-modules.html)).
+
 
 
 
