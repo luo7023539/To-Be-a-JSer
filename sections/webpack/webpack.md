@@ -271,6 +271,83 @@ module.exports = {
 * uglifyJsPlugin可用于js文件压缩
 * [UglifyJs Plugin](http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin)
 
+## Demo08 HTML、浏览器插件
+
+接下来展示如何使用第三方插件
+
+
+* [html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin) 能自动创建一个index.html
+* [open-browser-webpack-plugin](https://github.com/baldore/open-browser-webpack-plugin) 能自动打开浏览器
+
+webpack.config.js
+
+```javascript
+var HtmlwebpackPlugin = require('html-webpack-plugin');
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js'
+  },
+  plugins: [
+    new HtmlwebpackPlugin({
+      title: 'Webpack-demos',
+      filename: 'index.html'
+    }),
+    new OpenBrowserPlugin({
+      url: 'http://localhost:8080'
+    })
+  ]
+};
+```
+
+### Demo09: 环境标志
+
+可以通过设置环境标志来保证某些代码仅在某些环境当中生效
+
+main.js
+
+```javascript
+document.write('<h1>Hello World</h1>');
+
+if (__DEV__) {
+  document.write(new Date());
+}
+```
+
+webpack.config.js
+
+```javascript
+var webpack = require('webpack');
+
+var devFlagPlugin = new webpack.DefinePlugin({
+  __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
+});
+
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js'
+  },
+  plugins: [devFlagPlugin]
+};
+```
+
+将环境变量传入webpack中
+
+```bash
+# Linux & Mac
+$ env DEBUG=true webpack-dev-server
+
+# Windows-cmd
+$ set DEBUG=true
+$ webpack-dev-server
+
+# Windows-powershell
+$ $env:DEBUG='true'
+$ webpack-dev-server
+```
 
 
 
@@ -288,7 +365,9 @@ module.exports = {
 
 
 
+#### 待完善
 
+* DEMO09存在问题,直接跑不动,__DEV__报错
 
 #### Refer To 
 
