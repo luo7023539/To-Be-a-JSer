@@ -349,7 +349,70 @@ $ $env:DEBUG='true'
 $ webpack-dev-server
 ```
 
+### 接下来比较重要!!!!!!
 
+### DEMO10 代码分包 ([source](https://github.com/ruanyf/webpack-demos/tree/master/demo10))
+
+针对大型项目,不可能将所有代码仅仅打包成单一一个文件,Webpack允许你将它们分割成许多块。
+
+尤其是当某一块的代码只在特定的模块当中使用的时候,可以通过该功能实现按需加载。
+
+首先,你需要使用`require.ensure`来定义一个分割点([官方文档](http://webpack.github.io/docs/code-splitting.html))
+
+```javascript
+// main.js
+require.ensure(['./a'], function(require) {
+  var content = require('./a');
+  document.open();
+  document.write('<h1>' + content + '</h1>');
+  document.close();
+});
+```
+
+
+`require.ensure` 通知Webpack将`./a.js`从`bundle.js`分离分离出去,单独打包。
+
+```javascript
+// a.js
+module.exports = 'Hello World';
+```
+
+接下来,项目的模块依赖、加载顺序由Webpack托管,你无需在其他地方声明
+
+webpack.config.js
+
+```javascript
+module.exports = {
+  entry: './main.js',
+  output: {
+    filename: 'bundle.js'
+  }
+};
+```
+
+打包后,你会发现,`main.js` 和 `a.js`被打包成`bundle.js` and `1.bundle.js`,并且自动按需加载。
+
+#### 要点
+* 
+
+### Demo11: 通过bundle-loader实现代码分包 ([source](https://github.com/ruanyf/webpack-demos/tree/master/demo11))
+
+另一种实现分包的方式 [bundle-loader](https://www.npmjs.com/package/bundle-loader).
+
+```javascript
+// main.js
+
+// Now a.js is requested, it will be bundled into another file
+var load = require('bundle-loader!./a.js');
+
+// To wait until a.js is available (and get the exports)
+//  you need to async wait for it.
+load(function(file) {
+  document.open();
+  document.write('<h1>' + file + '</h1>');
+  document.close();
+});
+```
 
 
 
