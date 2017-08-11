@@ -608,8 +608,8 @@ ReactDOM.render(
 
 #### 待完善
 
-* DEMO09存在问题,直接跑不动,__DEV__报错
 * 具体应用至项目当中!!!
+
 
 #### Refer To 
 
