@@ -609,6 +609,7 @@ ReactDOM.render(
 #### 待完善
 
 * 具体应用至项目当中!!!
+* [webpack-angular-example](https://github.com/Treri/webpack-angular-example)
 
 
 #### Refer To 
