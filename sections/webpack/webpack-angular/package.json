@@ -26,6 +26,7 @@
     "html-minifier-loader": "^1.0.14",
     "html-webpack-plugin": "^1.7.0",
     "image-webpack-loader": "^1.6.3",
+    "json-loader": "^0.5.7",
     "postcss-loader": "^0.8.1",
     "replace-task-webpack-plugin": "^1.0.1",
     "serve": "^1.4.0",

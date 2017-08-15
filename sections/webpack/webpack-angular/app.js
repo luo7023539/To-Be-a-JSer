@@ -105,9 +105,7 @@ define(Ready(function () {
         '$controllerProvider',
         function ($stateProvider, $urlRouterProvider, $locationProvider, $controllerProvider) {
 
-            var router = require('./router');
-
-            var routeList = router.map(function (route, idx) {
+            /*var routeList = router.map(function (route, idx) {
                 console.log(route);
                 $stateProvider
                     .state(route.state, {
@@ -120,13 +118,13 @@ define(Ready(function () {
                             ], resolve);
                         })
                     })
-            });
+            });*/
             // $locationProvider.html5Mode(true);
             $urlRouterProvider.otherwise('/global/home');
 
             $stateProvider
                 .state('global', {
-                    abstract: true,
+                    // abstract: true,
                     url: '/global',
                     templateProvider: Chunk(function (resolve) {
                         require([

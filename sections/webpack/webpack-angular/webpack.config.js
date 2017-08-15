@@ -180,7 +180,12 @@ webpackConfig.module = {
     {
       test: /\.(eot|woff|woff2|ttf|svg)$/,
       loader: 'file?name=fonts/[name]-[hash].[ext]'
+    },
+    {
+      test: /\.json$/,
+      loader: 'json-loader'
     }
+
   ]
 };
 

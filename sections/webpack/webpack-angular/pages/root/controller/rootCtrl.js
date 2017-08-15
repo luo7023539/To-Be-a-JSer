@@ -3,18 +3,18 @@ define([
   'serviceNormalA',
   'serviceNormalB',
   'serviceNormalC',
-  'styles/rootCtrl.css',
+  '../css/rootCtrl.css',
 ], Ready(function(app) {
-  // app.controller('rootCtrl', [
-  //   '$scope',
-  //   function($scope) {
-  //     $scope.location = 'rootCtrl';
-  //   }
-  // ])
-  return [
+  app.controller('rootCtrl', [
     '$scope',
     function($scope) {
       $scope.location = 'rootCtrl';
     }
-  ]
+  ])
+  /*return [
+    '$scope',
+    function($scope) {
+      $scope.location = 'rootCtrl';
+    }
+  ]*/
 }));

@@ -1,6 +1,5 @@
 define([
-  'app',
-  'controllers/rootCtrl.js'
+  'app'
 ], Ready(function(){
   angular.bootstrap(document, ['webpack-example']);
 }));
