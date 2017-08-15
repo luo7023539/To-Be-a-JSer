@@ -1,6 +1,3 @@
-
-
-
 define([
   'app.js',
   'controllers/rootCtrl.js'

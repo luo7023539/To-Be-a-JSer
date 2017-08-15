@@ -19,8 +19,9 @@ webpackConfig.resolve = {
 };
 
 webpackConfig.externals = {
-  angular: 'angular'
-}
+  angular: 'angular',
+  $: '$'
+};
 
 //// entry config
 webpackConfig.entry = {

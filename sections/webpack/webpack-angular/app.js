@@ -104,6 +104,8 @@ app.config([
   '$locationProvider',
   function($stateProvider, $urlRouterProvider, $locationProvider) {
 
+    var router = require('./router');
+    console.log(router)
     // $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/example/');
 
