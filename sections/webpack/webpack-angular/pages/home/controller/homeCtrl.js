@@ -1,5 +1,6 @@
 define([
   'app',
+  '../css/homeCtrl.css'
 ], Ready(function(app) {
   app.controller('homeCtrl', [
     '$scope',

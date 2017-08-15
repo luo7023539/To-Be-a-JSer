@@ -3,16 +3,16 @@ module.exports = [
     "appid": "root",
     "state": "global",
     "url": "/",
-    "controller": "/pages/root/controller/rootCtrl.js",
-    "templateURL": "/pages/root/views/root.html",
+    "controller": "./pages/root/controller/rootCtrl.js",
+    "templateURL": "./pages/root/views/root.html",
     "deps": []
   },
   {
     "appid": "home",
     "state": "global.home",
     "url": "/home",
-    "controller": "/pages/home/controller/rootCtrl.js",
-    "templateURL": "/pages/home/views/root.html",
+    "controller": "./pages/home/controller/homeCtrl.js",
+    "templateURL": "./pages/home/views/home.html",
     "deps": []
   },
   // {

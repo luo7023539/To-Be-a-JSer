@@ -43,6 +43,7 @@
   "dependencies": {
     "angular": "^1.5.7",
     "angular-messages": "^1.5.7",
-    "angular-ui-router": "^1.0.3"
+    "angular-ui-router": "^1.0.3",
+    "oclazyload": "^1.1.0"
   }
 }
