@@ -102,60 +102,81 @@ app.config([
   '$stateProvider',
   '$urlRouterProvider',
   '$locationProvider',
-  function($stateProvider, $urlRouterProvider, $locationProvider) {
+  '$controllerProvider',
+  function($stateProvider, $urlRouterProvider, $locationProvider, $controllerProvider) {
 
     var router = require('./router');
-    console.log(router)
-    // $locationProvider.html5Mode(true);
-    $urlRouterProvider.otherwise('/example/');
 
-    $stateProvider
-      .state('example', {
-        abstract: true,
-        url: '/example',
-        template: '<div ui-view></div>',
-        controller: 'rootCtrl',
-        resolve: {
-          deps: Chunk(function(resolve){
-            require([
-              'controllers/rootCtrl.js'
-            ], resolve);
+    router.forEach(function (route, idx) {
+      $stateProvider
+          .state(route.state, {
+            url:route.url,
+            // templateURL:route.templateURL,
+            // resolve: {
+            //   init: ['$q', function ($q) {
+            //     var defer = $q.defer();
+            //     require([route.controller], defer.resolve)
+            //     return defer.promise
+            //   }]
+            // },
+            templateProvider: Chunk(function(resolve){
+              require([
+                ('./pages/home/views/home.html'),
+                ('./pages/home/controller/homeCtrl.js')
+              ], resolve);
+            })
           })
-        }
-      })
-      .state('example.home', {
-        url: '/',
-        templateProvider: Chunk(function(resolve){
-          require([
-            'views/home.html',
-            'styles/homeCtrl.css',
-            'controllers/homeCtrl.js'
-          ], resolve);
-        }),
-        controller: 'homeCtrl'
-      })
-      .state('example.foo', {
-        url: '/foo',
-        templateProvider: Chunk(function(resolve){
-          require([
-            'views/foo.html',
-            'styles/fooCtrl.css',
-            'controllers/fooCtrl.js'
-          ], resolve);
-        }),
-        controller: 'fooCtrl'
-      })
-      .state('example.bar', {
-        url: '/bar',
-        templateProvider: Chunk(function(resolve){
-          require([
-            'views/bar.html',
-            'styles/barCtrl.css',
-            'controllers/barCtrl.js'
-          ], resolve);
-        }),
-        controller: 'barCtrl'
-      })
+    })
+    // $locationProvider.html5Mode(true);
+    $urlRouterProvider.otherwise('/global/');
+
+/*    $stateProvider
+     .state('example', {
+     abstract: true,
+     url: '/example',
+     template: '<div ui-view></div>',
+     controller: 'rootCtrl',
+     resolve: {
+     deps: Chunk(function(resolve){
+     require([
+     'controllers/rootCtrl.js'
+     ], resolve);
+     })
+     }
+     })
+     .state('example.home', {
+     url: '/',
+     templateProvider: Chunk(function(resolve){
+     require([
+     'views/home.html',
+     'styles/homeCtrl.css',
+     'controllers/homeCtrl.js'
+     ], resolve);
+     }),
+     controller: 'homeCtrl'
+     })
+     .state('example.foo', {
+     url: '/foo',
+     templateProvider: Chunk(function(resolve){
+     require([
+     'views/foo.html',
+     'styles/fooCtrl.css',
+     'controllers/fooCtrl.js'
+     ], resolve);
+     }),
+     controller: 'fooCtrl'
+     })
+     .state('example.bar', {
+     url: '/bar',
+     templateProvider: Chunk(function(resolve){
+     require([
+     'views/bar.html',
+     'styles/barCtrl.css',
+     'controllers/barCtrl.js'
+     ], resolve);
+     }),
+     controller: 'barCtrl'
+     })*/
   }
 ]);
 
