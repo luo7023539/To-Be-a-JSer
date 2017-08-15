@@ -1,12 +1,20 @@
 define([
   'app.js',
 ], Ready(function(app) {
-  app.controller('barCtrl', [
+  // app.controller('barCtrl', [
+  //   '$scope',
+  //   'serviceNormalB',
+  //   'serviceNormalC',
+  //   function($scope, serviceNormalB, serviceNormalC) {
+  //     $scope.location = 'barCtrl';
+  //   }
+  // ])
+  return [
     '$scope',
     'serviceNormalB',
     'serviceNormalC',
     function($scope, serviceNormalB, serviceNormalC) {
       $scope.location = 'barCtrl';
     }
-  ])
+  ]
 }));

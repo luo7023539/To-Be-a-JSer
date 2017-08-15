@@ -1,5 +1,5 @@
 define([
-  'app.js',
+  'app',
 ], Ready(function(app) {
   app.controller('homeCtrl', [
     '$scope',
@@ -9,4 +9,12 @@ define([
       $scope.location = 'homeCtrl';
     }
   ])
+  // return [
+  //   '$scope',
+  //   'serviceNormalA',
+  //   'serviceNormalB',
+  //   function($scope, serviceNormalA, serviceNormalB) {
+  //     $scope.location = 'homeCtrl';
+  //   }
+  // ]
 }))
