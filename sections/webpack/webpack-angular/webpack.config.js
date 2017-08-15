@@ -12,6 +12,7 @@ var webpackConfig = module.exports = {};
 webpackConfig.resolve = {
   root: path.resolve(__dirname),
   alias: {
+    app: path.resolve(__dirname, 'app.js'),
     serviceNormalA: 'services/serviceNormalA',
     serviceNormalB: 'services/serviceNormalB',
     serviceNormalC: 'services/serviceNormalC'
@@ -29,7 +30,7 @@ webpackConfig.entry = {
 };
 // add vendor
 webpackConfig.entry.common = [
-  'app',
+  path.resolve(__dirname, 'app.js'),
   'services/serviceNormalA',
   'services/serviceNormalB',
   'services/serviceNormalC'
