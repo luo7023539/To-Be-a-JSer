@@ -8,14 +8,15 @@ var path = require('path')
   , WriteFilePlugin = require('write-file-webpack-plugin');
 
 var webpackConfig = module.exports = {};
-
+webpackConfig.context = path.resolve(__dirname);
 webpackConfig.resolve = {
   root: path.resolve(__dirname),
   alias: {
     app: path.resolve(__dirname, 'app.js'),
+    router: path.resolve(__dirname, 'router.json'),
     serviceNormalA: 'services/serviceNormalA',
     serviceNormalB: 'services/serviceNormalB',
-    serviceNormalC: 'services/serviceNormalC'
+    serviceNormalC: 'services/serviceNormalC',
   }
 };
 

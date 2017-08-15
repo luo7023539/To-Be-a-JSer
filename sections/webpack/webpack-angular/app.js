@@ -104,21 +104,6 @@ define(Ready(function () {
         '$locationProvider',
         '$controllerProvider',
         function ($stateProvider, $urlRouterProvider, $locationProvider, $controllerProvider) {
-
-            /*var routeList = router.map(function (route, idx) {
-                console.log(route);
-                $stateProvider
-                    .state(route.state, {
-                        url: route.url,
-                        templateProvider: Chunk(function (resolve) {
-                            require([
-                                // route.controller
-                                ('./pages/home/views/home.html'),
-                                ('./pages/home/controller/homeCtrl.js')
-                            ], resolve);
-                        })
-                    })
-            });*/
             // $locationProvider.html5Mode(true);
             $urlRouterProvider.otherwise('/global/home');
 
