@@ -144,6 +144,10 @@ webpackConfig.module = {
       loader: 'then?global,[name]'
     },
     {
+      test: /\.js$/,
+      loader: 'babel-loader'
+    },
+    {
       test: /promiz\.js$/,
       loader: 'expose?Promise'
     },
@@ -186,7 +190,6 @@ webpackConfig.module = {
       test: /\.json$/,
       loader: 'json-loader'
     }
-
   ]
 };
 

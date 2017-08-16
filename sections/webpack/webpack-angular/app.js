@@ -24,6 +24,7 @@ window.Chunk = function (loading) {
     };
 };
 
+
 define(Ready(function () {
 
     var app = angular.module('webpack-example', [
@@ -106,6 +107,18 @@ define(Ready(function () {
         function ($stateProvider, $urlRouterProvider, $locationProvider, $controllerProvider) {
             // $locationProvider.html5Mode(true);
             $urlRouterProvider.otherwise('/global/home');
+
+            /*router.forEach(function (route, idx) {
+                $stateProvider
+                    .state(route.state, {
+                        url: route.url,
+                        templateProvider: Chunk(function (resolve) {
+                            require([
+                                route.templateURL + ''
+                            ], resolve);
+                        })
+                    })
+            })*/
 
             $stateProvider
                 .state('global', {
