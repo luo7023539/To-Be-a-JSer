@@ -21,6 +21,8 @@ To Do:
 
 * [Angular Scope 源码解读](sections/angular/scope.md)
 
+* [Angular Function](sections/angular/bootstrap.md)
+
     针对Angular强烈推荐 -- Build Your Own AngularJs
 
 * [Single Page Web Application](sections/Single%20Page%20Web%20Application/Single%20Page%20Web%20Application.md)
