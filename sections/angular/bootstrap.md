@@ -54,3 +54,6 @@ function angularInit(element, bootstrap) {
 ```
 
 该方法的主要作用是遍历DOM,寻找是否存在带app入口指令的元素,如果存在,则直接调用bootstrap方法,启动angular模块
+
+
+#### bootstrap
