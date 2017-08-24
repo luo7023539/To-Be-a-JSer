@@ -1,3 +1,5 @@
+## 草稿状态
+
 #### getNgAttribute、angularInit、bootstrap
 
 ```javascript
