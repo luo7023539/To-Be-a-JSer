@@ -32,7 +32,9 @@
           return _task2()
         })
         .then(function(data) {
-          console.log(data)
+          console.log('success', data)
+        }, function(data) {
+          console.log('error', data)
         })
 ```
 
@@ -119,3 +121,96 @@
 
 * 加入状态,resolve后改变状态位fulfilled
 * resolve加入定时器延时处理
+
+#### 链式Promise
+
+* 采用return this的做法操作的均为同一个Promise
+    
+    故需要在then中返回另一个Promise,以实现链式Promise
+    
+    即在上一个Promise成功回调后,调用返回的Promise的resolve方法
+    
+
+```javascript
+    function Promise(resolver) {
+        var stack = [],
+            state = 'pending',
+            _value = null;
+        this.then = function(onFulfilled) {
+           // 把回调推入stack中
+           return new Promise(function(resolve) {
+               handle({
+                   onFulfilled: onFulfilled,
+                   resolve: resolve
+               })
+               // 将新创建的Promise的resolve及调用then方法传入的成功回调均推入队列中
+           })
+           // 方便链式调用
+        }
+        
+        function handle(cb) {
+          if(state === 'pending'){
+              return stack.push(cb)
+          }
+          
+          // 不仅需要执行上一个Promise的成功回调,还得将返回的Promise状态置为onFulfilled
+          var ret = cb.onFulfilled(_value);
+              cb.resolve(ret);
+        }
+        
+        function resolve(val) {
+            state = 'fulfilled';
+            _value = val;
+            setTimeout(function() {
+              stack.forEach(function(cb) {
+                handle(cb)
+              })
+            })
+        }
+        
+        if(typeof resolver === 'function'){
+            resolver(resolve)
+        }
+    }
+```
+
+```javascript
+    var _task1 = function() {
+      return new Promise(function(resolve, reject) {
+        setTimeout(function() {
+          resolve({
+              err: 0,
+              msg: 'task1'
+          })
+        })
+      })
+    }
+    
+    var _task2 = function() {
+      return new Promise(function(resolve, reject) {
+        setTimeout(function() {
+          resolve({
+              err: 0,
+              msg: 'task2'
+          })
+        })
+      })    
+    }
+    
+    _task1()
+        .then(function(data) {
+          console.log('success', data)
+        })
+        .then(function(data) {
+          console.log('success', data)
+        })
+```
+
+用该实例解释一下流程:
+
+* `_task1`返回一个`Promise_task1`
+* 第一个then方法给`Promise_task1`指定回调,并返回`Promise_bridge`
+* 第二个then方法给`Promise_bridge`指定回调,推入其stack中
+* 当`Promise_task1`的`resolve`被调用
+* 遍历自己的stack,执行`Promise_task1`的成功回调,并且调用`Promise_bridge`的resolve
+* 遍历`Promise_bridge`遍历自己的stack,执行回调
