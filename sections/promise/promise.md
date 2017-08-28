@@ -335,7 +335,7 @@ function Promise(resolver) {
 
 总体来说:
 
-* 提前注册回调,待结果返回后遍历流程!
+* 提前创建`Promise_bridge`用以连接Promise流程,并注册回调,待结果返回后遍历流程!
 
 ### Refs
 
