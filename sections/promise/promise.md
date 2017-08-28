@@ -323,7 +323,7 @@ function Promise(resolver) {
           // 不仅需要执行上一个Promise的成功回调,还得将返回的Promise状态置为onFulfilled
           var nameString = state === 'fulfilled' ? 'onFulfilled' : 'onRejected';
           try{
-          var ret = cb[nameString](_value);
+              var ret = cb[nameString](_value);
               cb.resolve(ret);
           }catch (e){
               cb.reject(e)
