@@ -174,6 +174,16 @@
     }
 ```
 
+用该实例解释一下流程:
+
+* `_task1`返回一个`Promise_task1`
+* 第一个then方法给`Promise_task1`指定回调,并返回`Promise_bridge`
+* 第二个then方法给`Promise_bridge`指定回调,推入其stack中
+* 当`Promise_task1`的`resolve`被调用
+* 遍历自己的stack,执行`Promise_task1`的成功回调,并且调用`Promise_bridge`的resolve
+* 遍历`Promise_bridge`遍历自己的stack,执行回调
+* 故一路成功调用下去
+
 ```javascript
     var _task1 = function() {
       return new Promise(function(resolve, reject) {
@@ -200,17 +210,84 @@
     _task1()
         .then(function(data) {
           console.log('success', data)
+          return {msg: 'task2'}
         })
         .then(function(data) {
           console.log('success', data)
         })
 ```
 
-用该实例解释一下流程:
 
-* `_task1`返回一个`Promise_task1`
-* 第一个then方法给`Promise_task1`指定回调,并返回`Promise_bridge`
-* 第二个then方法给`Promise_bridge`指定回调,推入其stack中
-* 当`Promise_task1`的`resolve`被调用
-* 遍历自己的stack,执行`Promise_task1`的成功回调,并且调用`Promise_bridge`的resolve
-* 遍历`Promise_bridge`遍历自己的stack,执行回调
+还有一个问题:
+
+* 当回调用手动返回Promise的时候,后续then方法应该响应手动返回的成功及失败
+* resolve方法需要根据回调的返回值做不同的处理
+    1. 返回非Promise,认为`Promise_bridge`成功
+    2. 返回Promise,使用该Promise给`Promise_bridge`指定成功及失败
+    
+* 代码实现为,当返回Promise时,将`Promise_bridge`的resolve作为其回调
+
+```javascript
+    function resolve(val) {
+        if(val instanceof Promise){
+            return val.then.call(val, resolve)   
+        }
+        state = 'fulfilled';
+        _value = val;
+        setTimeout(function() {
+          stack.forEach(function(cb) {
+            handle(cb)
+          })
+        })
+    }
+```
+
+即当手动返回的Promise成功,调用其onFulfilled即`Promise_bridge`的resolve方法
+
+#### 失败处理
+
+```javascript
+function Promise(resolver) {
+        var stack = [],
+            state = 'pending',
+            _value = null;
+        this.then = function(onFulfilled) {
+           // 把回调推入stack中
+           return new Promise(function(resolve) {
+               handle({
+                   onFulfilled: onFulfilled,
+                   resolve: resolve
+               })
+               // 将新创建的Promise的resolve及调用then方法传入的成功回调均推入队列中
+           })
+           // 方便链式调用
+        }
+        
+        function handle(cb) {
+          if(state === 'pending'){
+              return stack.push(cb)
+          }
+          
+          // 不仅需要执行上一个Promise的成功回调,还得将返回的Promise状态置为onFulfilled
+          var ret = cb.onFulfilled(_value);
+              cb.resolve(ret);
+        }
+        
+        function resolve(val) {
+            if(val instanceof Promise){
+                return val.then.call(val, resolve)   
+            }
+            state = 'fulfilled';
+            _value = val;
+            setTimeout(function() {
+              stack.forEach(function(cb) {
+                handle(cb)
+              })
+            })
+        }
+        
+        if(typeof resolver === 'function'){
+            resolver(resolve)
+        }
+    }
+```
