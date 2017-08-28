@@ -17,6 +17,8 @@ To Do:
 
 * [Closure、GC、Memory Leak](sections/closure、GC、Memory%20Leak/Closure、GC、Memory%20Leak.md)
 
+* [Promise](sections/promise/promise.md)
+
 * [Angular Scope 源码解读](sections/angular/scope.md)
 
 * [Angular Function](sections/angular/bootstrap.md)
