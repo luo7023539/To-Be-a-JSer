@@ -19,7 +19,7 @@
     var _task2 = function() {
       return new Promise(function(resolve, reject) {
         setTimeout(function() {
-          resolve({
+          reject({
               err: 0,
               msg: 'task2'
           })
@@ -29,6 +29,7 @@
     
     _task1()
         .then(function(data) {
+          console.log('task1', data)
           return _task2()
         })
         .then(function(data) {
@@ -304,7 +305,29 @@ function Promise(resolver) {
         }
         
         if(typeof resolver === 'function'){
-            resolver(resolve)
+            resolver(resolve, reject)
         }
     }
 ```
+
+#### 错误处理
+
+增加try、catch捕获错误
+
+```javascript
+        function handle(cb) {
+          if(state === 'pending'){
+              return stack.push(cb)
+          }
+          
+          // 不仅需要执行上一个Promise的成功回调,还得将返回的Promise状态置为onFulfilled
+          var nameString = state === 'fulfilled' ? 'onFulfilled' : 'onRejected';
+          try{
+          var ret = cb[nameString](_value);
+              cb.resolve(ret);
+          }catch (e){
+              cb.reject(e)
+          }
+        }
+```
+
