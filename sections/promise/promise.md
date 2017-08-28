@@ -32,6 +32,7 @@
           console.log('task1', data)
           return _task2()
         })
+        // bridge
         .then(function(data) {
           console.log('success', data)
         }, function(data) {
@@ -278,6 +279,7 @@ function Promise(resolver) {
           // 不仅需要执行上一个Promise的成功回调,还得将返回的Promise状态置为onFulfilled
           var nameString = state === 'fulfilled' ? 'onFulfilled' : 'onRejected';
           var ret = cb[nameString](_value);
+          // Promise_bridge
               cb.resolve(ret);
         }
         
@@ -315,19 +317,26 @@ function Promise(resolver) {
 增加try、catch捕获错误
 
 ```javascript
-        function handle(cb) {
-          if(state === 'pending'){
-              return stack.push(cb)
-          }
-          
-          // 不仅需要执行上一个Promise的成功回调,还得将返回的Promise状态置为onFulfilled
-          var nameString = state === 'fulfilled' ? 'onFulfilled' : 'onRejected';
-          try{
-              var ret = cb[nameString](_value);
-              cb.resolve(ret);
-          }catch (e){
-              cb.reject(e)
-          }
-        }
+    function handle(cb) {
+      if(state === 'pending'){
+          return stack.push(cb)
+      }
+      
+      // 不仅需要执行上一个Promise的成功回调,还得将返回的Promise状态置为onFulfilled
+      var nameString = state === 'fulfilled' ? 'onFulfilled' : 'onRejected';
+      try{
+          var ret = cb[nameString](_value);
+          cb.resolve(ret);
+      }catch (e){
+          cb.reject(e)
+      }
+    }
 ```
 
+总体来说:
+
+* 提前注册回调,待结果返回后遍历流程!
+
+### Refs
+
+(Promise/A+)[http://www.ituring.com.cn/article/66566]
