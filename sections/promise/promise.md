@@ -246,17 +246,23 @@
 
 #### 失败处理
 
+* 增加状态判断
+* 针对`Promise_bridge`除非手动返回,否则均为resolve
+* 增加reject函数,改变state为`rejected`
+
 ```javascript
 function Promise(resolver) {
         var stack = [],
             state = 'pending',
             _value = null;
-        this.then = function(onFulfilled) {
+        this.then = function(onFulfilled, onRejected) {
            // 把回调推入stack中
-           return new Promise(function(resolve) {
+           return new Promise(function(resolve, reject) {
                handle({
                    onFulfilled: onFulfilled,
-                   resolve: resolve
+                   resolve: resolve,
+                   onRejected: onRejected,
+                   reject: reject
                })
                // 将新创建的Promise的resolve及调用then方法传入的成功回调均推入队列中
            })
@@ -269,16 +275,27 @@ function Promise(resolver) {
           }
           
           // 不仅需要执行上一个Promise的成功回调,还得将返回的Promise状态置为onFulfilled
-          var ret = cb.onFulfilled(_value);
+          var nameString = state === 'fulfilled' ? 'onFulfilled' : 'onRejected';
+          var ret = cb[nameString](_value);
               cb.resolve(ret);
         }
         
         function resolve(val) {
             if(val instanceof Promise){
-                return val.then.call(val, resolve)   
+                return val.then.call(val, resolve, reject)   
             }
             state = 'fulfilled';
             _value = val;
+            execute()
+        }
+        
+        function reject(val) {
+          state = 'rejected';
+          _value = val;
+          execute()
+        }
+        
+        function execute() {
             setTimeout(function() {
               stack.forEach(function(cb) {
                 handle(cb)
