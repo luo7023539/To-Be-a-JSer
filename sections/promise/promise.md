@@ -2,6 +2,8 @@
 
 基于Promise/A+（即ES6的Promise的实现）
 
+链式Promise就是把resolve玩出花了!!
+
 ### 例子
 
 ```javascript
