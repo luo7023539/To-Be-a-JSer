@@ -1,5 +1,11 @@
 ## 草稿状态
 
+```javascript
+bindJQuery(), publishExternalAPI(angular), jqLite(document).ready(function() {
+        angularInit(document, bootstrap)
+    })
+```
+
 #### getNgAttribute、angularInit、bootstrap
 
 ```javascript
