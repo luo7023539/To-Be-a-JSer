@@ -7,7 +7,7 @@ To Do:
     1. AMD模块加载器
     2. Promise
     3. 简易的模板引擎
-    4. 简易View-Model
+    4. 简易View-Model（草稿中）
     5. ....
     
 * 推荐一些曾经看到的优秀的书籍、博客、文章等
@@ -29,6 +29,8 @@ To Do:
     1. [Webpack 入门教程](sections/webpack/webpack.md)
     2. [Webpack 配置项详解](sections/webpack/config.md)
     
+* 函数式相关
+
 * [requireJS](sections/requireJS/requireJS.md)
 
 * [Single Page Web Application](sections/Single%20Page%20Web%20Application/Single%20Page%20Web%20Application.md)
@@ -66,5 +68,4 @@ To Do:
 挺长时间没更新啦~~9.13
 
 未完待续。。。。
-
 
