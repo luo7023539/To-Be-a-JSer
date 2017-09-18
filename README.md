@@ -9,7 +9,7 @@ To Do:
     3. 简易的模板引擎
     4. 简易View-Model（草稿中）
     5. ....
-    6. VM
+    6. VM(在单位实现,有时间重写)
     
 * 推荐一些曾经看到的优秀的书籍、博客、文章等
 
@@ -36,7 +36,7 @@ To Do:
 
 * [Single Page Web Application](sections/Single%20Page%20Web%20Application/Single%20Page%20Web%20Application.md)
 
-
+ 
 
 
 ## 推荐
