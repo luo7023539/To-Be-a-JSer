@@ -8,7 +8,26 @@ M层并没有什么好说的,处理数据相关的业务逻辑
 
 V层即视图层,即HTML模板
 
+有一些需要强调的地方,VM是强调视图层的作用,重用大量重复的逻辑跟代码
+
 VM逻辑分布在视图及原来的控制器上,管理绑定视图、并负责用户交互
+
+在框架设计上面,MVVM框架都会提供双向绑定的功能
+
+在流行的框架中,最显著的就是直接在模板上面书写指令
+
+Angular.js 中指令的书写
+```html
+<form name="login">
+    <label>姓名</label>
+    <input name="name" ng-model="name">
+    <div ng-message="login.$error" ng-show="login.$dirty">
+        <label class="info"></label>
+    </div>
+</form>
+```
+针对上方代码,在angular中可以简单的通过在View中书写指令达到复用多个指令所集成的功能,以此来达到强化View层的作用
+
 
 核心之处在于,VM的实现!!!
 
