@@ -20,4 +20,57 @@ Javascript中数组的底层实现其实是特殊的对象。
 
 1. 类型优化
 
-2. 避免读取数组长度以外项
+在运行Javascript代码时,V8会追踪数组中的每一项,通过这些信息,对数组方法进行优化。
+
+举以下例子:
+
+在Javascript层面,其不区分整形、浮点数、双精度
+
+然而,在引擎级别,我们可以做出更加精确的区分
+
+```javascript
+    const array = [1,2,3]
+    // PACKED_SMI_ELEMENTS
+    
+    array.push(4.56)
+    
+    // PACKED_DOUBLE_ELEMENTS
+    
+    array.push('x')
+    
+    // PACKED_ELEMENT
+    
+```
+
+* 小整型,Smi
+* 双精度浮点数,浮点数和不能表示位Smi的整数
+* 常规元素,不能表示为Smi或双精度的值
+
+元素类型的转换只能从一个方向进行
+
+如上方的从Smi -- DOUBLE -- ELEMENT的方向
+
+2. 密集型数组及稀疏数组
+
+```javascript
+    const array = [1, 2, 3, 4.56, 'x'];
+    // PACKED_ELEMENT
+    array.length  // 5
+    
+    array[9] = 1;
+    // array[5] until array[8] now holey    
+
+```
+
+常见元素种类PACKED数组的操作比HOLEY数组上的操作更为有效。
+
+且数组可以从`PACKED`过度到`HOLEY`
+
+##### 性能提示
+
+```javascript
+    const array = new Array(3)
+    
+```
+4. 避免读取数组长度以外项
+
