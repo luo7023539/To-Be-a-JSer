@@ -68,9 +68,44 @@ Javascript中数组的底层实现其实是特殊的对象。
 
 ##### 性能提示
 
+* 避免创建HOLEY
+
 ```javascript
     const array = new Array(3)
+    // 被标记为HOLEY_SMI_ELEMENT
     
+    array[0] = 'a'
+    array[1] = 'b'
+    array[2] = 'c'
+    
+    // HOLEY_ELEMENT
 ```
-4. 避免读取数组长度以外项
+
+```javascript
+    const array = ['a','b','c']
+    
+    // 当不明其中项时
+    
+    const _array = []
+    
+    _array.push(value)
+    _array.push(value)
+```
+
+* 避免读取数组长度以外项
+
+```javascript
+    const array = [1,2,3]
+    
+    array[4] 
+    // 将从原型链上查询
+    
+    for(let i = 0; item; (item = item[i]) !== null; i++){
+        doSomething(item)
+    }
+```
+
+* 避免类型转换
+
+* 类数组 vs 数组
 
