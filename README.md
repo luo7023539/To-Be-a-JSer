@@ -36,9 +36,6 @@ To Do:
 
 * [Single Page Web Application](sections/Single%20Page%20Web%20Application/Single%20Page%20Web%20Application.md)
 
- 
-
-
 ## 推荐
 
 * [阿里FED](http://taobaofed.org/)
@@ -56,7 +53,6 @@ To Do:
 * [xufei](https://github.com/xufei/blog)
 * [张鑫旭](http://www.zhangxinxu.com)
 * [阮一峰](http://www.ruanyifeng.com/home.html)
-
 
 发现好多人都在一起努力!!!
 
