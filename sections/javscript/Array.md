@@ -107,5 +107,49 @@ Javascript中数组的底层实现其实是特殊的对象。
 
 * 避免类型转换
 
+需要在数组当中进行大量的操作,可考虑规范化内部元素
+
+```javascript
+     const array = [1,2,3]
+     
+     array.push(-0)
+     array.push(null)
+     array.push(Infinity)
+     /*
+        -0 -- null -- Infinity 等均会将其转化位
+        PICKED_DOUBLE_ELEMENT
+     */
+```
+
 * 类数组 vs 数组
 
+在Javascript中某些对象也类似数组格式,但不具备相应的方法
+
+也可借用数组方法进行操作
+
+如果需要进行多次操作也考虑进行转化
+
+ES6 - 中提供的 rest params可以优雅地进行响应的操作
+
+避免使用arguement
+```javascript
+    const logArgs = (...args) => {
+        // args 可通过数组原型查找到相应的方法
+        args.forEach((i) => console.log(i))
+    }
+```
+
+* 避免多态
+
+针对存在多种类型形态的数组,调用原生方法的效率代替用户自定义的函数库
+
+```javascript
+    const array = [1,'x']
+    // PACKED_ELEMENT
+    
+    const each = function(array, fn) {
+        for(let i = 0, len = array.length;i < len;i++){
+            fn.call(array[i], array[i], i, array)
+        }
+    }
+```
