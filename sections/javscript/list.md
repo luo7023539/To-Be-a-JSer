@@ -55,7 +55,7 @@
         let index = this.find(element);
         this.dataStore = this.dataStore
                                 .slice(0, index)
-                                .concat(++index)
+                                .concat(this.dataStore.slice(++index))
     }
     
     
