@@ -53,6 +53,7 @@ To Do:
 * [xufei](https://github.com/xufei/blog)
 * [张鑫旭](http://www.zhangxinxu.com)
 * [阮一峰](http://www.ruanyifeng.com/home.html)
+* [晚晴幽草轩](https://jeffjade.com/)
 
 发现好多人都在一起努力!!!
 
