@@ -5,10 +5,10 @@
 链式Promise就是把resolve玩出花了!!
 
 ```
-异步实现与原生存在差异
-采用`setTimeout`实现的异步延时将将其加入到Event loop
-而浏览器实现则加入macrotask
-故存在先后差异！
+异步实现与原生存在差异
+采用`setTimeout`实现的异步延时将将其加入到Event loop
+而浏览器实现则加入macrotask
+故存在先后差异！
 ```
 
 ### 例子
