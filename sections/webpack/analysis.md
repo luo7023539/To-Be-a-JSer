@@ -8,7 +8,7 @@
 webpack --profile --json > stats.json
 ```
 
-可以上传至以下两个做数据分析
+可以上传至以下两个做数据分析
 
 [webpack-chart](http://alexkuz.github.io/webpack-chart/)
 
@@ -18,7 +18,7 @@ webpack --profile --json > stats.json
 1. `webpack-visualizer-plugin`
 2. `webpack-bundle-analyzer`
 
-### Webpack 打包速度分析
+### Webpack 打包速度分析
 
 可通过以下查看webpack命令行参数
 ```
@@ -48,4 +48,4 @@ bundle.js  148 kB       0  [emitted]  main
 ```
 通过以上两种方式对webapck打包的体积及性能做相应的分析。
 
-后续附上相应部分的优化技巧
+后续附上相应部分的优化技巧
