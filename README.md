@@ -29,6 +29,7 @@ To Do:
 * Webpack相关
     1. [Webpack 入门教程](sections/webpack/webpack.md)
     2. [Webpack 速度及体积分析](sections/webpack/analysis.md)
+    3. [Webpack 速度优化](sections/webpack/profile.md)
     
 * 函数式相关
 
