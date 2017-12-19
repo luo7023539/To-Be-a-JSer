@@ -55,7 +55,7 @@ To Do:
 * [张鑫旭](http://www.zhangxinxu.com)
 * [阮一峰](http://www.ruanyifeng.com/home.html)
 * [晚晴幽草轩](https://jeffjade.com/)
-
+* [teahour](http://teahour.fm/)
 发现好多人都在一起努力!!!
 
 稍微了解一下Java - 基本语法 — Set - 连接Hive
