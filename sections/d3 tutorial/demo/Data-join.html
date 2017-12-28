@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Dynamic venn.js example</title>
     <style>
         body {
-            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             font-size: 14px;
         }
     </style>
@@ -30,7 +31,7 @@
     // data  ([values[,keys]]) 将每一个元素分别绑定values中每一项
     var datum_p = d3.select('#datum').selectAll('p')
     // console.log(
-        datum_p
+    datum_p
         .datum(7)
         .append('span')
         // 调用append后返回的是创建且加入后的span选择集
@@ -39,23 +40,55 @@
             return d + ' ' + i
         })
     // );
-        
-        //.text(function (d, i) {
-        //    return d + ' ' + i
-        //})
+
+    //.text(function (d, i) {
+    //    return d + ' ' + i
+    //})
     // console.log(datum_p)
     // _groups 选择集元素
     // _parents 父选择集
     // 绑定于__data__上
     // 调用text，数据及索引作为实参传入回调中
-    
-    var sets = [3, 6, 9]
+
+    var sets = [
+        {
+            id: 1,
+            name: 'A'
+        },
+        {
+            id: 2,
+            name: 'B'
+        },
+        {
+            id: 3,
+            name: 'C'
+        }]
     var data_p = d3.select('#data').selectAll('p')
-    var update = data_p.data(sets)
     // 返回update对象 - 存在Update - Enter - Exit等概念
-    console.log(update);
     // 数据多的为 Enter 即将进入
     // 数据少的为 Exit  即将退出
     // 数据存在的为 update 即将更新
+    // 通过enter 、 exit获取对应数据及元素选择集
+
+
+    data_p.data(sets)
+    // 更新数据，打乱顺序
+    // 可传递函数用于指定相等的键做数据绑定
+    sets = [
+        {
+            id: 3,
+            name: 'C'
+        },
+        {
+            id: 2,
+            name: 'B'
+        },
+        {
+            id: 1,
+            name: 'A'
+        }
+    ]
+    
 </script>
+
 </html>
