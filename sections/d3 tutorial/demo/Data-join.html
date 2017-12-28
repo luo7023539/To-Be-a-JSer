@@ -23,11 +23,20 @@
     // datum (value) 将数据绑定到选择集中的每一个元素上
     // data  ([values[,keys]]) 将每一个元素分别绑定values中每一项
     var datum_p = d3.select('#datum').selectAll('p')
-    datum_p
+    console.log(
+        datum_p
         .datum(7)
+        .append('span')
+        // 调用append后返回的是创建且加入后的span选择集
+        // 且该span会继承__data__
         .text(function (d, i) {
             return d + ' ' + i
         })
+    );
+        
+        //.text(function (d, i) {
+        //    return d + ' ' + i
+        //})
     console.log(datum_p)
     // _groups 选择集元素
     // _parents 父选择集
