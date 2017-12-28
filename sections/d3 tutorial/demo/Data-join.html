@@ -17,13 +17,19 @@
         <p>2</p>
         <p>3</p>
     </div>
+
+    <div id="data">
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+    </div>
 </body>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
     // datum (value) 将数据绑定到选择集中的每一个元素上
     // data  ([values[,keys]]) 将每一个元素分别绑定values中每一项
     var datum_p = d3.select('#datum').selectAll('p')
-    console.log(
+    // console.log(
         datum_p
         .datum(7)
         .append('span')
@@ -32,15 +38,24 @@
         .text(function (d, i) {
             return d + ' ' + i
         })
-    );
+    // );
         
         //.text(function (d, i) {
         //    return d + ' ' + i
         //})
-    console.log(datum_p)
+    // console.log(datum_p)
     // _groups 选择集元素
     // _parents 父选择集
     // 绑定于__data__上
     // 调用text，数据及索引作为实参传入回调中
+    
+    var sets = [3, 6, 9]
+    var data_p = d3.select('#data').selectAll('p')
+    var update = data_p.data(sets)
+    // 返回update对象 - 存在Update - Enter - Exit等概念
+    console.log(update);
+    // 数据多的为 Enter 即将进入
+    // 数据少的为 Exit  即将退出
+    // 数据存在的为 update 即将更新
 </script>
 </html>
