@@ -46,10 +46,14 @@ child.prop = 'child'
 console.log(child.hasOwnProperty('prop'))
 ```
 
-在父类prop属性设置set、get后，当子类实例再设置该属性发现触发set、get，且子类实例上不存在该私有方法
+~~在父类prop属性设置set、get后，当子类实例再设置该属性发现触发set、get，且子类实例上不存在该私有方法~~
 
-拜读阮大ES6，
+有点蛋疼，问题其实就是当父类设置set、get以后，子类对同名属性修改均为对父类原型该属性的修改，同时触发父类set、get
 
+并且，当子类重新设置set、get以后，仅仅只触发子类的set、get
+
+
+~~拜读阮大ES6，
 ES5的继承，
 实质是先创造子类的实例对象this
 然后再将父类的私有属性添加到this上面
@@ -57,39 +61,19 @@ ES5的继承，
 但也会有一些问题
 假设父类构造函数上存在计数
 这也会导致计数不准确的问题
-
 ES6的继承机制完全不同
 实质是先创造父类的实例对象this
 所以必须先调用super方法
 （即便子类没有书写constructor也会默认添加）
-然后再用子类的构造函数修改this
+然后再用子类的构造函数修改this~~
 
-```javascript
-class A {
-  constructor() {
-    console.log(new.target.name);
-  }
-}
-class B extends A {
-  constructor() {
-    super();
-  }
-}
-new A() // A
-new B() // B
 
-```
-上面代码中，子类B的构造函数之中的super()，代表调用父类的构造函数。这是必须的，否则 JavaScript 引擎会报错。
-
-注意，super虽然代表了父类A的构造函数，但是返回的是子类B的实例，即super内部的this指的是B，因此super()在这里相当于A.prototype.constructor.call(this)。
-
-上面代码中，new.target指向当前正在执行的函数。可以看到，在super()执行时，它指向的是子类B的构造函数，而不是父类A的构造函数。也就是说，super()内部的this指向的是B。
-
-### Babel转码
+### Babel
 
 ```javascript
 'use strict';
 
+// 解决es6的class简便写法的问题
 var _createClass = function () {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
@@ -148,6 +132,8 @@ var Parent = function () {
         this.prop = 'Parent';
     }
 
+    // 蛋疼就在这里
+    // get、set通过defineProperty设置到Parent.prototype上面
     _createClass(Parent, [{
         key: 'prop',
         get: function get() {
@@ -162,6 +148,8 @@ var Parent = function () {
 }();
 
 var Child = function (_Parent) {
+    // 继承的时候
+    // Child.prototype指向一个由Object.create(Parent.prototype)的实例
     _inherits(Child, _Parent);
 
     function Child() {
@@ -179,5 +167,14 @@ var Child = function (_Parent) {
 var child = new Child();
 ```
 
-其实本质上还是通过原型链进行继承，且在继承的时候增加了静态方法继承
-且调用父类构造函数将父类私有属性一并复制到子类实例上，再通过子类构造函数
+所以。。。
+
+这个问题从babel的实现上面其实是找不到答案的
+如果从原型链检索的角度来说的话
+父类某属性存在`set`/`get`的时候，若不进行触发，实现也不合理
+
+所以
+当问题更加复杂的时候
+
+比如子类自身也对该属性设置`set`/`get`，这时候仅仅触发子类的
+这倒是合理的，`child`原型上即存在set、get自然就不向上检索
