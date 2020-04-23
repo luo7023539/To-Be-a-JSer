@@ -1,4 +1,5 @@
-let str = 'nihao';
+let str = 'parent init';
+let __str = "child init"
 class Parent {
     // 实例属性
     // prop = 'a'
@@ -33,16 +34,16 @@ class Parent {
 class Child extends Parent {
     constructor() {
         super();
-        console.log('Child');
+        console.log('Child constructor');
     }
 
     get prop() {
         console.log("Child GET")
-        return str;
+        return __str;
     }
     set prop(value) {
         console.log("Child SET")
-        str = value;
+        __str = value;
     }
 }
 
@@ -50,3 +51,7 @@ let child = new Child()
 
 child.prop = 'child'
 console.log(child.hasOwnProperty('prop'))
+console.log(child.hasOwnProperty('prop'))
+console.log(Parent.prototype.hasOwnProperty('prop'))
+console.log(str)
+console.log(__str)
