@@ -7,9 +7,11 @@ class Parent {
         this.prop = 'b'
     }
     get prop() {
+        console.log("Parent GET")
         return str;
     }
     set prop(value) {
+        console.log("Parent SET")
         str = value;
     }
 
@@ -32,6 +34,15 @@ class Child extends Parent {
     constructor() {
         super();
         console.log('Child');
+    }
+
+    get prop() {
+        console.log("Child GET")
+        return str;
+    }
+    set prop(value) {
+        console.log("Child SET")
+        str = value;
     }
 }
 
