@@ -40,6 +40,10 @@
 
 限制复杂度、选择二分
 
+#### One
+
+较优解
+
 ```javascript
 /**
  * @param {number[]} nums
@@ -56,7 +60,7 @@ var search = function (nums, target) {
     // 或者
     // 增加边界判断
     while (endIdx >= startIdx) {
-        var midIdx = Math.floor(startIdx + (endIdx - startIdx) / 2);
+        var midIdx = startIdx + (endIdx - startIdx >> 1);
         var mid = nums[midIdx];
         var start = nums[startIdx];
         var end = nums[endIdx];
@@ -82,3 +86,15 @@ var search = function (nums, target) {
     return -1
 };
 ```
+
+#### Two
+
+先寻找反转点（最小值）
+
+然后对两边再次进行二分
+
+最差的情况就是反转点为首项，且查询值为次项，
+
+`[2,3,4,5,6,7,1]`
+
+整体复杂度为`O(2log2 n)`
