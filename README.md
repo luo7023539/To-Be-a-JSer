@@ -26,6 +26,8 @@ To Do:
 
     针对Angular强烈推荐 -- Build Your Own AngularJs
 
+* [ES6 `class` 父类设置get、set的坑](sections/javscript/ES6-class.md)
+
 * Webpack相关
     1. [Webpack 入门教程](sections/webpack/webpack.md)
     2. [Webpack 速度及体积分析](sections/webpack/analysis.md)
