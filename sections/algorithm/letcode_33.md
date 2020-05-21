@@ -51,7 +51,7 @@ var search = function (nums, target) {
     var endIdx = nums.length - 1;
 
     while (endIdx > startIdx) {
-        var midIdx = Math.floor(startIdx + (endIdx - endIdx) / 2);
+        var midIdx = Math.floor(startIdx + (endIdx - startIdx) / 2);
         var mid = nums[midIdx];
         var start = nums[startIdx];
         var end = nums[endIdx];
@@ -61,16 +61,16 @@ var search = function (nums, target) {
         }else if (start < mid) {
             // 左边？
             if (target >= start && target < mid)
-                endIdx = midIdx
+                endIdx = midIdx - 1
             else
                 // 右边？
-                startIdx = midIdx
+                startIdx = midIdx + 1
         }else {
             // 右边有序
             if (target <= end && target > mid)
-                startIdx = midIdx
+                startIdx = midIdx + 1
             else
-                end = midIdx
+                end = midIdx - 1
         }
     }
 
