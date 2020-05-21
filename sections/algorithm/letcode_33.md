@@ -50,7 +50,12 @@ var search = function (nums, target) {
     var startIdx = 0;
     var endIdx = nums.length - 1;
 
-    while (endIdx > startIdx) {
+    // POINT
+    // 最终二分可能存在最后为一个元素的情况
+    // 需要考虑 =
+    // 或者
+    // 增加边界判断
+    while (endIdx >= startIdx) {
         var midIdx = Math.floor(startIdx + (endIdx - startIdx) / 2);
         var mid = nums[midIdx];
         var start = nums[startIdx];
