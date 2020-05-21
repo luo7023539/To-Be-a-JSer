@@ -33,6 +33,10 @@ To Do:
     
 * 函数式相关
 
+* 部分算法题
+    1. [快排](sections/algorithm/quickSort.md)
+    2. [LetCode 33 旋转数组查询](sections/algorithm/letcode_33.md)
+
 * [requireJS](sections/requireJS/requireJS.md)
 
 * [Single Page Web Application](sections/Single%20Page%20Web%20Application/Single%20Page%20Web%20Application.md)
