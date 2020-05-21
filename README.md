@@ -38,6 +38,7 @@ To Do:
 * 部分算法题
     1. [快排](sections/algorithm/quickSort.md)
     2. [LetCode 33 旋转数组查询](sections/algorithm/letcode_33.md)
+    3. [LetCode 445 双数相加 II](sections/algorithm/letcode_445.md)
 
 * [requireJS](sections/requireJS/requireJS.md)
 
