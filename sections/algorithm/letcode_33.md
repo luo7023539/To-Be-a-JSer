@@ -66,8 +66,8 @@ var search = function (nums, target) {
         var end = nums[endIdx];
         if (target === mid) {
             return midIdx
-        // 左边有序
-        }else if (start < mid) {
+        // 左边有序
+        }else if (start <= mid) {
             // 左边？
             if (target >= start && target < mid)
                 endIdx = midIdx - 1
@@ -79,7 +79,7 @@ var search = function (nums, target) {
             if (target <= end && target > mid)
                 startIdx = midIdx + 1
             else
-                end = midIdx - 1
+                endIdx = midIdx - 1
         }
     }
 
