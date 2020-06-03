@@ -1,29 +1,94 @@
 ## Closure、GC、Memory Leak
 
-### Closure
-
 在了解闭包之前有几个概念需要了解:
 
-如需要跳过本章请直接打开[clear](example/clear.html):
+### 词法作用域
 
-浏览器运行且查看内存快照~有惊喜!
+词法作用域的就是当前函数可以访问的作用域栈由书写的位置来决定
 
-* 请勿在已经产生闭包的作用域内再次创建闭包!!!
-* 请勿在已经产生闭包的作用域内再次创建闭包!!!
-* 请勿在已经产生闭包的作用域内再次创建闭包!!!
-* 请勿在已经产生闭包的作用域内再次创建闭包!!!
+作用域链是一个栈，当函数执行的时候把当前函数作用域压栈顶，执行完毕的时候出栈
+```javascript
 
+var a = 0
+var _a = -1
 
-* 词法作用域
+function foo0() {
+    console.log( a )
+}
 
-简单地说,词法作用域就是定义在词法阶段的作用域。换句话说,词法作用域是由你在写 代码时将变量和块作用域写在哪里来决定的,因此当词法分析器处理代码时会保持作用域不变。
+function foo1() {
+    var a = 1;
+    function bar() { 
+        console.log( a );
+     }
+    return bar; 
+}
 
+function foo2() {
+    function bar() {
+        var a = 2; 
+        console.log( a);
+        throw Error("aaa")
+        // 报错信息也能看出其中的结构
+     }
+    return bar; 
+}
+```
 
-* 函数作用域
+### 函数作用域
 
-在ES5标准中,仅支持函数作用域,在任意代码片段外部添加包装函数,可以将内部的变量和函数定义“隐藏”起来,外部作用域无法访问包装函数内部的任何内容。
+在ES5标准中,仅支持函数作用域,为了生成一个单独的`nameSpace`,大量使用IFFE
 
-##### 下面看一些代码
+(这也是作用域的第一个功能)
+
+经常会看到类似这样的代码
+```javascript
+((root, factory) => {
+    if (typeof define === 'function' && define.amd) {
+        //AMD
+        define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        //CommonJS
+        var $ = requie('jquery');
+        module.exports = factory($);
+    } else {
+        root.testModule = factory(root.jQuery);
+    }
+})(this, ($) => {
+    //todo
+})
+// umd的模块打包
+
+~(function () {
+
+})(jquery)
+// 封装jquery插件
+```
+
+### GC
+
+这东西太干巴巴了
+
+理解几个要点
+
+1. 正常函数执行完毕，对应的作用域会销毁
+2. 浏览器针对能不能销毁有自己一套标记机制
+
+### 闭包
+
+闭包其实就是打破了上面所说GC的第一点
+
+当前作用域的某些变量后续仍然需要使用
+
+那么
+
+浏览器就不能再执行完毕后直接把作用域给销毁掉
+
+怎么做到呢？
+
+自然是需要利用第二点，
+
+告诉浏览器这东西不能丢了
 
 ```javascript
 function foo() {
@@ -37,19 +102,9 @@ var baz = foo();
 baz(); // 2 —— 朋友,这就是闭包的效果。
 ```
 
-这里很明显创建了闭包。
+闭包其实就是对作用域的引用。
 
-但是闭包到底是什么?
-
-这大概是我看到的对闭包最好的解释!!!
-
-闭包是对函数词法作用域的引用。
-
-当函数在定义时的词法作用域以外的地方被调用。
-
-闭包使得函数可以继续访问定义时的词法作用域。
-
-**无论通过何种手段将内部函数传递到所在的词法作用域以外,它都会持有对原始定义作用 域的引用,无论在何处执行这个函数都会使用闭包。**
+**内部函数传递到所在的作用域以外,它都会通过闭包来找到当前函数的执行作用域链**
 
 ```javascript
 function foo() { 
@@ -78,89 +133,37 @@ function bar() {
  bar(); // 2
 ```
 
-
-在定时器、事件监听器、 Ajax 请求、跨窗口通信、Web Workers 或者任何其他的异步(或者同步)任务中,只要使 用了回调函数,实际上就是在使用闭包!
-
-### GC
-
-这部分规则较多,就不敢给大家安利太多东西!
-
-当一个对象被一个根对象或另一个活对象指向,该对象为活对象。
-
-* 根对象永远是活对象，它是被浏览器或V8所引用的对象。
-* 被局部变量所指向的对象也属于根对象，因为它们所在的作用域对象被视为根对象。
-* 全局对象（Node中为global，浏览器中为window）自然是根对象。
-* 浏览器中的DOM元素也属于根对象
-
-隆重推出!!!
-
-__[浅谈V8引擎中的垃圾回收机制](https://segmentfault.com/a/1190000000440270)__
-
-__[V8 之旅： 垃圾回收器](http://newhtml.net/v8-garbage-collection/)__
-
+各种`回调函数`、`fp`基础函数`curry`、`compose`......
 
 ### Memory Leak
 
-根据上面的一些规则做一些例子
+重点来提一提我们需要规避的问题
 
-如何挤爆浏览器或者node内存
+正常情况下
 
-可以通过node直接跑
+持有闭包的引用被清除
 
-```javascript
-let arr = [];
-while(true)
-  arr.push(1);
-```
+自然对应的作用域也全部被销毁
 
-```javascript
-let arr = [];
-while(true)
-  arr.push();
-```
-
-以下这个可以略过
-
-如果 push 的是 `Buffer` 会有所区别
-
-```javascript
-let arr = [];
-while(true)
-  arr.push(new Buffer(1000));
-```
-
-也就是所,根对象及活对象都会不断增加内存暂用
-
-造成内存泄露更多还是因为闭包!
-
-* DOM被移除后,其绑定事件所引用的变量会自动清除（IE可能存在问题）
-* 谨慎使用闭包
-
-
+[demo-1](example/demo-1.html)
 ```javascript
 function foo() {
-    var a = 2;
+    var _longStr = new Array(1e7).join('_');
     
     return function bar() { 
-               console.log( a );
+               console.log( _longStr );
            } 
 }
 var baz = foo();
 baz(); 
 ```
 
-正常情况下,我们这样使用闭包,用来保存某些变量的引用,保证变量私有,或者实现模块化
-
-但是在某一些情况下,我们也会在不经意间产生闭包
-
-示例当中有示范
-
-
+接下来把作用域复杂化
+[demo-2](example/demo-2.html)
 ```javascript
     window.onload = function () {
         var div = document.getElementById('div');
         var longStr = new Array(1e7).join('*');
-
 
         var useless = function () {
             if(longStr)
@@ -173,31 +176,68 @@ baz();
     };
 ```
 
-这个有一个比较好的解释!
+聪明的浏览器
+[demo-3](example/demo-3.html)
+```javascript
+    window.onload = function () {
+        var arr = new Array(1e7).fill(0);
+        var div = document.getElementById('div');
 
-在运行阶段作用域中创建的闭包是共享的!
+        div.onclick = function () {
+            console.log(arr)
+        };
+        div = null;
+    };
 
-也就是说,在函数内部创建函数,存在某个函数引用外部变量,且有函数暴露到外部,不论这是两个不同的函数,或者是同一个,所有被引用的变量都会无法被浏览器垃圾回收!
+    function removeClick() {
+        var div = document.getElementById('div');
+        div.onclick = null
+    }
 
-在会产生闭包的函数中,建议手动将不需要的对象手动清楚
+    function removeDiv() {
+        document.body.removeChild(document.getElementById('div'))
+    }
+```
 
-在有的时候,闭包也会造成一些比较严重的问题!
+已经成为历史的DEMO-4
+欲哭无泪又要刷新知识啦
+[demo-4](example/demo-4.html)
+```javascript
+    var theThing = null;
 
-例如Clear当中的示例
+    var replaceThing = function () {
+        var originalThing = theThing;
+        var _longStr = new Array(1e7).join('_');
+        var unused = function () {
+            if (originalThing)
+                console.log("hi")
+        };
+        theThing = {
+            longStr: new Array(1e7).join('*'),
+            func: function () {
+                if (originalThing) {
 
-看了示例以后会有一种坑到自己的感觉!!!!
+                }
+            }
+        };
+    };
+```
 
 示例:
 
-1. [error](example/error.html)
-2. [Closure](example/Closure.html)
-3. [DOM_REMOVE](example/DOM_REMOVE.html)
-4. [clear](example/clear.html)
+1. [demo-1](example/demo-1.html)
+2. [demo-2](example/demo-2.html)
+3. [demo-3](example/demo-3.html)
+4. [demo-4](example/demo-4.html)
 
-* 请勿在已经产生闭包的作用域内再次创建闭包!!!
-* 请勿在已经产生闭包的作用域内再次创建闭包!!!
-* 请勿在已经产生闭包的作用域内再次创建闭包!!!
-* 请勿在已经产生闭包的作用域内再次创建闭包!!!
+以前的`demo`在现在强大的`chrome`面前不堪一击
+
+#### 寻找其他产生Bug的方式
+
 ##  Refer To
 
-* Closure --->   你不知道的Javascript
+__[浅谈V8引擎中的垃圾回收机制](https://segmentfault.com/a/1190000000440270)__
+
+__[V8 之旅： 垃圾回收器](http://newhtml.net/v8-garbage-collection/)__
+
+Closure --->   你不知道的Javascript

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Closure</title>
+</head>
+<body>
+<button id="btn" onclick="replaceThing()">
+    DO - replaceThing
+</button>
+</body>
+<script>
+    var theThing = null;
+
+    var replaceThing = function () {
+        var originalThing = theThing;
+        var _longStr = new Array(1e7).join('_');
+        var unused = function () {
+            if (originalThing)
+                console.log("hi")
+        };
+        theThing = {
+            longStr: new Array(1e7).join('*'),
+            func: function () {
+            }
+        };
+    };
+
+    /*
+    * 可以想象一个不断拉长的theThing引用链
+    * theThing - theThing - theThing - theThing - theThing
+    * */
+</script>
+</html>
