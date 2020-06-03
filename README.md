@@ -26,12 +26,19 @@ To Do:
 
     针对Angular强烈推荐 -- Build Your Own AngularJs
 
+* [ES6 `class` 父类设置get、set的坑](sections/javscript/ES6-class.md)
+
 * Webpack相关
     1. [Webpack 入门教程](sections/webpack/webpack.md)
     2. [Webpack 速度及体积分析](sections/webpack/analysis.md)
     3. [Webpack 速度优化](sections/webpack/profile.md)
     
 * 函数式相关
+
+* 部分算法题
+    1. [快排](sections/algorithm/quickSort.md)
+    2. [LetCode 33 旋转数组查询](sections/algorithm/letcode_33.md)
+    3. [LetCode 445 双数相加 II](sections/algorithm/letcode_445.md)
 
 * [requireJS](sections/requireJS/requireJS.md)
 

@@ -93,10 +93,10 @@ function foo2() {
 ```javascript
 function foo() {
     var a = 2;
-    function bar() { 
+    function bar() {
         console.log( a );
      }
-    return bar; 
+    return bar;
 }
 var baz = foo();
 baz(); // 2 —— 朋友,这就是闭包的效果。
@@ -106,25 +106,26 @@ baz(); // 2 —— 朋友,这就是闭包的效果。
 
 **内部函数传递到所在的作用域以外,它都会通过闭包来找到当前函数的执行作用域链**
 
+**闭包是词法作用域的必然结果**
 ```javascript
-function foo() { 
+function foo() {
     var a = 2;
-    function baz() { 
+    function baz() {
         console.log( a ); // 2
     }
-    bar( baz ); 
+    bar( baz );
 }
 function bar(fn) {
-    fn(); // 妈妈快看呀,这就是闭包!
+    fn(); // 妈妈快看呀,这也产生闭包!
 }
 
 var fn;
 function foo() {
     var a = 2;
-    function baz() { 
+    function baz() {
         console.log( a );
     }
-    fn = baz; // 将 baz 分配给全局变量 
+    fn = baz; // 将 baz 分配给全局变量
 }
 function bar() {
     fn(); // 妈妈快看呀,这就是闭包!
