@@ -241,7 +241,6 @@ class ImageLazyLoader {
             img.src = $(img).attr('data-src');
         });
     }
-
 }
 // 点击分页的时候就初始化一个图片懒惰加载的
 $('.page').on('click', function () {

@@ -6,7 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Demo-5</title>
 </head>
+<style>
+    .wrap {
+        height: 600px;
+    }
+    .img-flow {
+        overflow: auto
+    }
+    img {
+        width: 534px;
+        height: 300px;
+    }
+</style>
 <body>
-    
+<div class="wrap">
+    <div class="img-flow">
+        <img src="./img.jpg" alt="">
+    </div>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function ImageLazyLoader(imgs) {
+        $('.wrap').on('scroll', () => {
+            this.showImage($photoList);
+        });
+    }
+</script>
 </body>
 </html>
