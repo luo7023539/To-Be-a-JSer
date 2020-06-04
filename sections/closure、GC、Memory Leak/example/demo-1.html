@@ -20,7 +20,7 @@
     document.querySelector('button').onclick = click
 
     function foo() {
-        var _longStr = new Array(10000000).join('_');
+        var _longStr = new Array(1e7).join('*');
 
         return function bar() {
             console.log(_longStr)

@@ -90,6 +90,10 @@ function foo2() {
 
 告诉浏览器这东西不能丢了
 
+（利用活对象去引用作用域内的变量)
+
+（活对象最常见的就是window、DOM)
+
 ```javascript
 function foo() {
     var a = 2;
@@ -116,7 +120,7 @@ function foo() {
     bar( baz );
 }
 function bar(fn) {
-    fn(); // 妈妈快看呀,这也产生闭包!
+    fn(); // 快看呀,这也产生闭包!
 }
 
 var fn;
@@ -128,7 +132,7 @@ function foo() {
     fn = baz; // 将 baz 分配给全局变量
 }
 function bar() {
-    fn(); // 妈妈快看呀,这就是闭包!
+    fn(); // 快看呀,这就是闭包!
  }
  foo();
  bar(); // 2
@@ -138,13 +142,13 @@ function bar() {
 
 ### Memory Leak
 
-重点来提一提我们需要规避的问题
+什么内存泄露？
 
-正常情况下
+就是你告诉浏览器这东西要留着
 
-持有闭包的引用被清除
+然后不需要的时候没有跟它说
 
-自然对应的作用域也全部被销毁
+接着浏览器傻傻的全部留下来
 
 [demo-1](example/demo-1.html)
 ```javascript
@@ -187,7 +191,6 @@ baz();
         div.onclick = function () {
             console.log(arr)
         };
-        div = null;
     };
 
     function removeClick() {
@@ -216,44 +219,19 @@ baz();
         theThing = {
             longStr: new Array(1e7).join('*'),
             func: function () {
-                if (originalThing) {
-
-                }
             }
         };
     };
 ```
 
-老东西都不管用，只能找找新的
-（浏览器的bug找不到，只能找人的bug）
-[demo-5](example/demo-5.html)
-```javascript
-class ImageLazyLoader {
-    constructor ($photoList) {
-        $(window).on('scroll', () => {
-            this.showImage($photoList);
-        });
-    }
+#### 涉及Vue相关
 
-    showImage ($photoList) {
-        $photoList.each(img => {
-            // 通过位置判断图片滑出来了就加载
-            img.src = $(img).attr('data-src');
-        });
-    }
-}
-// 点击分页的时候就初始化一个图片懒惰加载的
-$('.page').on('click', function () {
-    new ImageLazyLoader($('img.photo'));
-});
-```
-#### 寻找其他产生Bug的方式
+**仅供参考,DEMO后补**
 
+1. 监听在window/body等事件没有解绑
+
+2. 指令内涉及原生DOM或者定时器未清除
+
+3. `v-if`、路由切换、Store - watch
 
 ##  Refer To
-
-__[浅谈V8引擎中的垃圾回收机制](https://segmentfault.com/a/1190000000440270)__
-
-__[V8 之旅： 垃圾回收器](http://newhtml.net/v8-garbage-collection/)__
-
-Closure --->   你不知道的Javascript
