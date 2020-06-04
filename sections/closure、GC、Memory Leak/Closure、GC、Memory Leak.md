@@ -98,8 +98,8 @@ function foo() {
      }
     return bar;
 }
-var baz = foo();
-baz(); // 2 —— 朋友,这就是闭包的效果。
+var baz = foo(); // 我还要a，不要删了~~
+baz(); // 
 ```
 
 闭包其实就是对作用域的引用。

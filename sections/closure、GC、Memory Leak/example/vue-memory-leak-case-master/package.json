@@ -1,0 +1,26 @@
+{
+  "name": "memory-test",
+  "version": "1.0.0",
+  "description": "Memory test case for Vue.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Boris Dai",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.22.0",
+    "babel-preset-env": "^1.7.0",
+    "express": "^4.16.4",
+    "html-webpack-plugin": "^3.2.0",
+    "vue-loader": "^13.3.0",
+    "vue-template-compiler": "^2.5.0",
+    "webpack": "^3.7.1",
+    "webpack-dev-middleware": "^1.10.0",
+    "webpack-hot-middleware": "^2.19.1"
+  },
+  "dependencies": {
+    "vue": "^2.5.0"
+  }
+}
