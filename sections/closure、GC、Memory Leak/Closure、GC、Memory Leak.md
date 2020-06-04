@@ -39,7 +39,7 @@ function foo2() {
 
 在ES5标准中,仅支持函数作用域,为了生成一个单独的`nameSpace`,大量使用IFFE
 
-(这也算是闭包的一个功能)
+(这也算是闭包的一个功能,不让别人碰自己的东西)
 
 经常会看到类似这样的代码
 ```javascript
@@ -224,16 +224,31 @@ baz();
     };
 ```
 
-示例:
+老东西都不管用，只能找找新的
+（浏览器的bug找不到，只能找人的bug）
+[demo-5](example/demo-5.html)
+```javascript
+class ImageLazyLoader {
+    constructor ($photoList) {
+        $(window).on('scroll', () => {
+            this.showImage($photoList);
+        });
+    }
 
-1. [demo-1](example/demo-1.html)
-2. [demo-2](example/demo-2.html)
-3. [demo-3](example/demo-3.html)
-4. [demo-4](example/demo-4.html)
-
-以前的`demo`在现在强大的`chrome`面前不堪一击
-
+    showImage ($photoList) {
+        $photoList.each(img => {
+            // 通过位置判断图片滑出来了就加载
+            img.src = $(img).attr('data-src');
+        });
+    }
+}
+// 点击分页的时候就初始化一个图片懒惰加载的
+$('.page').on('click', function () {
+    new ImageLazyLoader($('img.photo'));
+});
+```
 #### 寻找其他产生Bug的方式
+
 
 ##  Refer To
 
