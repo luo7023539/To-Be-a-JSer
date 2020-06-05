@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Demo-3</title>
@@ -10,30 +11,44 @@
         height: 200px;
     }
 </style>
+
 <body>
-<div id="div">
-    Test
-</div>
-<button onclick="removeClick()">Remove Click</button>
-<button onclick="removeDiv()">Remove Div</button>
+    <div id="div">
+        Test
+    </div>
+    <button onclick="removeClick()">Remove Click</button>
+    <button onclick="removeDiv()">Remove Div</button>
+    <button onclick="removeUnbind()">Remove Unbind</button>
 </body>
 <script>
+    var unbind;
     window.onload = function () {
         var arr = new Array(1e7).join('*');
         var div = document.getElementById('div');
 
-        div.onclick = function () {
+        function click() {
             console.log(arr)
-        };
+        }
+
+        div.addEventListener('click', click)
+
+        unbind = function () {
+            div.removeEventListener('click', click)
+        }
     };
 
     function removeClick() {
-        var div = document.getElementById('div');
-        div.onclick = null
+        if (typeof unbind === 'function')
+            unbind()
     }
 
     function removeDiv() {
         document.body.removeChild(document.getElementById('div'))
     }
+
+    function removeUnbind() {
+        unbind = null
+    }
 </script>
+
 </html>
