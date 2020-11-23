@@ -15,7 +15,8 @@ To Do:
 
 
 ## 总结
-
+* [Vue Benchmark](sections/benchmark/1.md)
+* [Performance - Vue 2 vs Vue 3](sections/benchmark/2.md)
 * [Closure、GC、Memory Leak](sections/closure、GC、Memory%20Leak/Closure、GC、Memory%20Leak.md)
 
 * [Promise](sections/promise/promise.md)
@@ -63,4 +64,3 @@ To Do:
 * [阮一峰](http://www.ruanyifeng.com/home.html)
 * [晚晴幽草轩](https://jeffjade.com/)
 * [teahour](http://teahour.fm/)
-发现好多人都在一起努力!!!
