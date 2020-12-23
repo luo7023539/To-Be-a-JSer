@@ -49,5 +49,13 @@ import platformModules from 'web/runtime/modules/index'
 const modules = platformModules.concat(baseModules)
 
 export const patch: Function = createPatchFunction({ nodeOps, modules })
+```
 
+位于`platforms\web\runtime\index.js`
+```javascript
+import { patch } from './patch'
+
+// ...
+
+Vue.prototype.__patch__ = inBrowser ? patch : noop
 ```
