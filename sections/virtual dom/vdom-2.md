@@ -159,4 +159,26 @@ if (isUndef(vnode.text)) {
 }
 ```
 
-到此节点位置及text已经处理完毕
+到此节点DOM结构已经处理完毕
+
+回到最开始的`DEMO`
+
+```javascript
+import { init } from 'snabbdom/init'
+import { classModule } from 'snabbdom/modules/class'
+import { propsModule } from 'snabbdom/modules/props'
+import { styleModule } from 'snabbdom/modules/style'
+import { eventListenersModule } from 'snabbdom/modules/eventlisteners'
+import { h } from 'snabbdom/h' // helper function for creating vnodes
+
+var patch = init([ // Init patch function with chosen modules
+  classModule, // makes it easy to toggle classes
+  propsModule, // for setting properties on DOM elements
+  styleModule, // handles styling on elements with support for animations
+  eventListenersModule, // attaches event listeners
+])
+```
+
+init接口各个模块的钩子函数
+
+其他属性的更新均通过钩子完成
