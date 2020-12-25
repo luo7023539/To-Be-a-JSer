@@ -46,6 +46,10 @@ function updateChildren(parentElm: Node,
 
 ### Diff
 
+思考一下
+
+什么情况下`DOM`可以复用?
+
 回顾一下`sameVnode`
 
 ```javascript
@@ -54,7 +58,9 @@ function sameVnode (vnode1: VNode, vnode2: VNode): boolean {
 }
 ```
 
-真正决定最大程度复用节点的其实是`sel`,包括`tagName`,`className`,`id`,`key`更多是可选项
+不考虑`key`的情况下,`sel`一致就可以复用,包括`tagName`,`className`,`id`,
+
+想简单一点,即相同标签就可以复用
 
 接下来要解决的问题就是节点的**增**/**删**/**改**
 
