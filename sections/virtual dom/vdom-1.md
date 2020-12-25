@@ -1,5 +1,6 @@
 ## Vue - virtual dom
 
+一种替代直接操作`DOM`的思路,存在不少实现的类库
 ### Snabbdom
 
 `Vue`里的虚拟DOM实现复刻`snabbdom`,我们先去看看更为纯净的实现
