@@ -45,7 +45,7 @@
     }
   },
   "dependencies": {
-    "angular": "^1.7.9",
+    "angular": "^1.8.3",
     "angular-messages": "^1.5.7",
     "angular-ui-router": "^1.0.3",
     "oclazyload": "^1.1.0"
